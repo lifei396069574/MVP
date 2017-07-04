@@ -7,6 +7,8 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.mvp.model.utils.ToastUtils;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,6 +45,8 @@ public class MyApplication extends Application {
      * 这还有一系列的第三方SDK的初始化
      */
     private void initSDK() {
+
+          ToastUtils.init(this);
 
     }
 

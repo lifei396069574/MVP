@@ -8,4 +8,5 @@ import com.mvp.base.BaseView;
  */
 
 public interface MainView extends BaseView{
+
 }

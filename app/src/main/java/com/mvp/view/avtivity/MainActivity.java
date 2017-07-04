@@ -4,6 +4,7 @@ import android.os.Message;
 
 import com.mvp.R;
 import com.mvp.base.BaseActivity;
+import com.mvp.model.utils.ToastUtils;
 import com.mvp.presenter.MainPresenter;
 import com.mvp.view.iview.MainView;
 
@@ -16,7 +17,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
     @Override
     public void onFail(String str) {
-
+//        Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
+        ToastUtils.toastString(str);
     }
 
     @Override
@@ -26,7 +28,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
     @Override
     protected void createPresenter() {
-        mPresenter=new MainPresenter();
+        mPresenter=new MainPresenter(this);
     }
 
     @Override
@@ -37,5 +39,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     @Override
     protected void initDatas() {
 
+      //      mPresenter.xx("asd");
     }
 }

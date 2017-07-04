@@ -37,6 +37,7 @@ public final class Utils {
         throw new NullPointerException("u should init first");
     }
 
+    // 判断手机号
     public static boolean isMobileNO(String mobiles) {
     /*
     移动：134、135、136、137、138、139、150、151、157(TD)、158、159、187、188
@@ -49,6 +50,7 @@ public final class Utils {
         else return mobiles.matches(telRegex);
     }
 
+    //  判断邮箱 是否正确
     public static boolean isEmailAddress(String url) {
         String check = "^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
         Pattern regex = Pattern.compile(check);

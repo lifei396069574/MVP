@@ -1,4 +1,4 @@
-package com.mvp.model;
+package com.mvp.model.http;
 
 import android.text.TextUtils;
 import android.util.Log;

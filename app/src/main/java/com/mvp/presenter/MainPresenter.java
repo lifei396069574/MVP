@@ -3,6 +3,9 @@ package com.mvp.presenter;
 import android.content.Context;
 
 import com.mvp.base.BasePresenter;
+import com.mvp.model.main.MainModel;
+import com.mvp.model.main.MainModelImpel;
+import com.mvp.model.main.OnMainListener;
 import com.mvp.view.iview.MainView;
 
 /**
@@ -10,24 +13,30 @@ import com.mvp.view.iview.MainView;
  * 类的用途：
  */
 
-public class MainPresenter extends BasePresenter<MainView>{
+public class MainPresenter extends BasePresenter<MainView> implements OnMainListener{
 
     private Context mContext;
+    private MainView mMainView;
+    private MainModel mMainModel;
 
-    public MainPresenter(Context mContext) {
-        this.mContext = mContext;
+    public MainPresenter(MainView mMainView) {
+        this.mMainView = mMainView;
+        mMainModel= new MainModelImpel();
     }
 
-    // 请求
 
-//    public void postAddNet(Map<String, Object> map) {
-//        Api.loadDataFromNet(Api.getServer().postAdd(map), new HttpObserver<AddBean>(mContext) {
-//            @Override
-//            public void onSuccess(AddBean addBean) {
-//                mMessage.what=0;
-//                mMessage.obj = addBean;
-//                mView.onSucceed(mMessage);
-//            }
-//        });
-//    }
+    public void xx(String str){
+       // mMainModel.xx();
+    }
+
+
+    @Override
+    public void onSuccess(String str) {
+        //   mMainView.onSucceed(message);
+    }
+
+    @Override
+    public void onFailure(String s) {
+        mMainView.onFail(s);
+    }
 }
