@@ -1,5 +1,6 @@
 package com.mvp.view.avtivity;
 
+import android.content.Context;
 import android.os.Message;
 
 import com.mvp.R;
@@ -19,6 +20,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     public void onFail(String str) {
 //        Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
         ToastUtils.toastString(str);
+    }
+
+    @Override
+    public Context context() {
+        return this;
     }
 
     @Override

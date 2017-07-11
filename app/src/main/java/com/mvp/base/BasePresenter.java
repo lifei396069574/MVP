@@ -1,6 +1,9 @@
 package com.mvp.base;
 
+import android.content.Context;
 import android.os.Message;
+
+import com.mvp.app.MyApplication;
 
 /**
  * 作者：李飞 on 2017/6/21 20:21
@@ -9,6 +12,7 @@ import android.os.Message;
 
 public class BasePresenter<T extends BaseView> {
 
+    protected Context mContext;
     protected T mView;
     protected Message mMessage;
 
@@ -28,5 +32,12 @@ public class BasePresenter<T extends BaseView> {
         if (mMessage != null) {
             mMessage = null;
         }
+    }
+
+    public Context context(){
+        if (mView!=null){
+            return mView.context();
+        }
+       return MyApplication.getInstance();
     }
 }

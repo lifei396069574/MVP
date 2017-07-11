@@ -1,7 +1,5 @@
 package com.mvp.presenter;
 
-import android.content.Context;
-
 import com.mvp.base.BasePresenter;
 import com.mvp.model.main.MainModel;
 import com.mvp.model.main.MainModelImpel;
@@ -15,7 +13,6 @@ import com.mvp.view.iview.MainView;
 
 public class MainPresenter extends BasePresenter<MainView> implements OnMainListener{
 
-    private Context mContext;
     private MainView mMainView;
     private MainModel mMainModel;
 
