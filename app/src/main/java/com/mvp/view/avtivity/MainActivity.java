@@ -1,25 +1,31 @@
 package com.mvp.view.avtivity;
 
 import android.content.Context;
-import android.os.Message;
+import android.widget.Button;
 
 import com.mvp.R;
 import com.mvp.base.BaseActivity;
+import com.mvp.model.utils.LogUtils;
 import com.mvp.model.utils.ToastUtils;
 import com.mvp.presenter.MainPresenter;
 import com.mvp.view.iview.MainView;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainView{
+import butterknife.BindView;
+import butterknife.OnClick;
+
+public class MainActivity extends BaseActivity<MainPresenter> implements MainView {
+
+    @BindView(R.id.button)
+    Button mButton;
 
     @Override
-    public void onSucceed(Message message) {
-
+    public void onSucceed(Object object) {
     }
 
     @Override
     public void onFail(String str) {
-//        Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
-        ToastUtils.toastString(str);
+        LogUtils.a(str);
+        ToastUtils.toast(str);
     }
 
     @Override
@@ -34,17 +40,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
     @Override
     protected void createPresenter() {
-        mPresenter=new MainPresenter(this);
+        mPresenter = new MainPresenter();
     }
 
-    @Override
-    protected void initView() {
-
-    }
 
     @Override
     protected void initDatas() {
-
-      //      mPresenter.xx("asd");
     }
+
+    @OnClick(R.id.button)
+    public void onClick() {
+        mPresenter.xx();
+    }
+
 }

@@ -1,9 +1,9 @@
 package com.mvp.presenter;
 
+import com.mvp.base.BaseBean;
 import com.mvp.base.BasePresenter;
-import com.mvp.model.main.MainModel;
-import com.mvp.model.main.MainModelImpel;
-import com.mvp.model.main.OnMainListener;
+import com.mvp.model.http.Api;
+import com.mvp.model.http.HttpObserver;
 import com.mvp.view.iview.MainView;
 
 /**
@@ -11,29 +11,21 @@ import com.mvp.view.iview.MainView;
  * 类的用途：
  */
 
-public class MainPresenter extends BasePresenter<MainView> implements OnMainListener{
+public class MainPresenter extends BasePresenter<MainView> {
 
-    private MainView mMainView;
-    private MainModel mMainModel;
+    public void xx(){
 
-    public MainPresenter(MainView mMainView) {
-        this.mMainView = mMainView;
-        mMainModel= new MainModelImpel();
+        Api.loadDataFromNet(Api.getServer().getData(), new HttpObserver<BaseBean>() {
+            @Override
+            public void onSuccess(BaseBean objectBaseBean) {
+                    mView.onSucceed(objectBaseBean);
+            }
+
+            @Override
+            public void onFiled(String t) {
+                    mView.onFail(t);
+            }
+        });
     }
 
-
-    public void xx(String str){
-       // mMainModel.xx();
-    }
-
-
-    @Override
-    public void onSuccess(String str) {
-        //   mMainView.onSucceed(message);
-    }
-
-    @Override
-    public void onFailure(String s) {
-        mMainView.onFail(s);
-    }
 }

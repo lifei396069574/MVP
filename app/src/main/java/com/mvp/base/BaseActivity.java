@@ -3,12 +3,17 @@ package com.mvp.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.mvp.R;
 import com.mvp.app.MyApplication;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -18,10 +23,14 @@ import butterknife.Unbinder;
  * 类的用途：
  */
 
-public abstract class BaseActivity <T extends BasePresenter> extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView {
+    protected FragmentManager mFragmentManager;
     protected Activity mContext;//上下文
-    private Unbinder mUnbinder;//ButterKnif
     protected T mPresenter;
+    private Toolbar mToolBar;
+    private String mTitle;
+    private Fragment mFragment;
+    private Unbinder mUnBinder;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         //acticity跳转动画——右进左出
@@ -31,21 +40,24 @@ public abstract class BaseActivity <T extends BasePresenter> extends AppCompatAc
         setContentView(getLayoutId());
         //初始化共有内容
         init();
-        //初始化当前Activity控件
-        initView();
         //初始化数据
         initDatas();
     }
 
     private void init() {
         mContext = this;
-        mUnbinder = ButterKnife.bind(this);//ButterKnife绑定
-        createPresenter();//建立presenter
+        //ButterKnife绑定
+        mUnBinder = ButterKnife.bind(this);
+        //建立presenter
+        createPresenter();
+
         if (mPresenter!=null){
             mPresenter.attachView(this);
         }
+
         MyApplication.getInstance().addActivity(this);//添加当前Activity
     }
+
 
     @Override
     protected void onStart() {
@@ -76,7 +88,9 @@ public abstract class BaseActivity <T extends BasePresenter> extends AppCompatAc
             mPresenter = null;
         }
         //ButterKnift解除绑定
-        mUnbinder.unbind();
+        mUnBinder.unbind();
+        // eventbus  解绑
+        EventBus.getDefault().unregister(this);
         //删除当前Activity
         MyApplication.getInstance().removeActivity(this);
     }
@@ -98,8 +112,24 @@ public abstract class BaseActivity <T extends BasePresenter> extends AppCompatAc
 
     protected abstract void createPresenter();
 
-    protected abstract void initView();
-
     protected abstract void initDatas();
 
+    public FragmentTransaction fragmentReplace(int layoutID, Fragment fragment){
+        return mFragmentManager.beginTransaction().replace(layoutID,fragment);
+    }
+
+    public void showFragment(Fragment fragment ,int layoutID) {
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (mFragment != null) {
+            fragmentTransaction.hide(mFragment);
+        }
+        if (!fragment.isAdded()) {
+            fragmentTransaction.add(layoutID, fragment);
+        }
+        fragmentTransaction.show(fragment);
+        fragmentTransaction.commit();
+        mFragment = fragment;
+
+    }
 }

@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.mvp.app.MyApplication;
+
 /**
  * 作者：李飞 on 2017/6/21 21:34
- * 类的用途： 网络请求类
+ * 类的用途： 网络判断
  */
 
 public final class NetUtils {
@@ -21,12 +23,12 @@ public final class NetUtils {
     /**
      * 判断网络是否连接
      *
-     * @param context
+     * @param
      * @return
      */
-    public static boolean isConnected(Context context) {
+    public static boolean isConnected() {
 
-        ConnectivityManager connectivity = (ConnectivityManager) context
+        ConnectivityManager connectivity = (ConnectivityManager) MyApplication.getInstance()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (null != connectivity) {
@@ -44,8 +46,8 @@ public final class NetUtils {
     /**
      * 判断是否是wifi连接
      */
-    public static boolean isWifi(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context
+    public static boolean isWifi() {
+        ConnectivityManager cm = (ConnectivityManager) MyApplication.getInstance()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm == null)
             return false;

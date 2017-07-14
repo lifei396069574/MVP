@@ -33,8 +33,7 @@ public class ToastUtils {
         throw new NullPointerException("u should init first");
     }
 
-    public static void toastString(String str) {
-
+    public static void toast(String str) {
         Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
     }
 }

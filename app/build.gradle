@@ -37,7 +37,7 @@ dependencies {
     //进度条
     //recyclerView
     compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.zhy:base-rvadapter:3.0.3'
+//    compile 'com.zhy:base-rvadapter:3.0.3'
     //butterknife
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'

@@ -1,7 +1,6 @@
 package com.mvp.base;
 
 import android.content.Context;
-import android.os.Message;
 
 /**
  * 作者：李飞 on 2017/6/21 20:15
@@ -10,9 +9,11 @@ import android.os.Message;
 
 public interface BaseView {
 
-    void onSucceed(Message message);
+    Context context();
+
+    void onSucceed(Object object);
 
     void onFail(String str);
 
-    Context context();
+
 }

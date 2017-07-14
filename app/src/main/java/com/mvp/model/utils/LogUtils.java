@@ -34,10 +34,11 @@ import javax.xml.transform.stream.StreamSource;
 
 /**
  * 作者：李飞 on 2017/6/22 14:45
- * 类的用途：
+ * 类的用途：  log
  */
 
 public final class LogUtils {
+
     public static final int V = 0x01;
     public static final int D = 0x02;
     public static final int I = 0x04;

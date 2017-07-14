@@ -6,5 +6,5 @@ package com.mvp.app;
  */
 
 public class Constant {
-    public static final String BASE_URL = "";
+    public static final String BASE_URL = "https://www.baidu.com/";
 }

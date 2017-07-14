@@ -99,6 +99,9 @@ public class MyApplication extends Application {
                 }
             }
         }
+        /**
+         * 绕过Activity 生命周期  强制关闭
+         */
         android.os.Process.killProcess(android.os.Process.myPid());
         System.exit(0);
     }
