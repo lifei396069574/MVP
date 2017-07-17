@@ -1,9 +1,6 @@
 package com.mvp.presenter;
 
-import com.mvp.base.BaseBean;
 import com.mvp.base.BasePresenter;
-import com.mvp.model.http.Api;
-import com.mvp.model.http.HttpObserver;
 import com.mvp.view.iview.MainView;
 
 /**
@@ -15,17 +12,6 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void xx(){
 
-        Api.loadDataFromNet(Api.getServer().getData(), new HttpObserver<BaseBean>() {
-            @Override
-            public void onSuccess(BaseBean objectBaseBean) {
-                    mView.onSucceed(objectBaseBean);
-            }
-
-            @Override
-            public void onFiled(String t) {
-                    mView.onFail(t);
-            }
-        });
     }
 
 }

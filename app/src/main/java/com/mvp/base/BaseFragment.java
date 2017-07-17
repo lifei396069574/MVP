@@ -2,6 +2,7 @@ package com.mvp.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -68,6 +71,24 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         mUnBinder.unbind();
         EventBus.getDefault().unregister(this);
     }
+
+    public static void registerEvent(Object obj){
+        EventBus.getDefault().register(obj);
+    }
+
+    public static void sendEvent(Object obj){
+        EventBus.getDefault().postSticky(obj);
+    }
+
+    protected void startActivity(Class<?> cls){
+        startActivity(new Intent(mContext,cls));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN , sticky = true)
+    public void onEventMainThread(Object obj){
+
+    }
+
 
     protected abstract void createPresenter();
 

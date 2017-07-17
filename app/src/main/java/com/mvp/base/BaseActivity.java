@@ -1,6 +1,8 @@
 package com.mvp.base;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,11 +11,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.mvp.R;
-import com.mvp.app.MyApplication;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -55,7 +60,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mPresenter.attachView(this);
         }
 
-        MyApplication.getInstance().addActivity(this);//添加当前Activity
     }
 
 
@@ -92,7 +96,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         // eventbus  解绑
         EventBus.getDefault().unregister(this);
         //删除当前Activity
-        MyApplication.getInstance().removeActivity(this);
     }
 
     protected void setToolBar(Toolbar toolbar, String title) {
@@ -114,6 +117,24 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     protected abstract void initDatas();
 
+    public static void registerEvent(Object obj){
+        EventBus.getDefault().register(obj);
+    }
+
+    public static void sendEvent(Object obj){
+        EventBus.getDefault().postSticky(obj);
+    }
+
+    protected void startActivity(Class<?> cls){
+        startActivity(new Intent(mContext,cls));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN , sticky = true)
+    public void onEventMainThread(Object obj){
+
+    }
+
+
     public FragmentTransaction fragmentReplace(int layoutID, Fragment fragment){
         return mFragmentManager.beginTransaction().replace(layoutID,fragment);
     }
@@ -131,5 +152,29 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         fragmentTransaction.commit();
         mFragment = fragment;
 
+    }
+
+    /**
+     * 隐藏软键盘
+     *
+     * @param v
+     */
+    public void hideInputMethod(final EditText v) {
+        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(),InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+    }
+
+    /**
+     * 显示软键盘
+     *
+     * @param v
+     */
+    public void showInputMethod(final EditText v) {
+
+        v.requestFocus();
+        InputMethodManager imm = (InputMethodManager)mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(v,InputMethodManager.SHOW_IMPLICIT);
     }
 }

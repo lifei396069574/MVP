@@ -104,7 +104,7 @@ public class Api {
         private static ApiService apiserver = new Retrofit.Builder()
                 .baseUrl(Constant.BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        //        .addConverterFactory(ScalarsConverterFactory.create())    //请求String类
+    //          .addConverterFactory(ScalarsConverterFactory.create())    //请求String类
                 .addConverterFactory(GsonConverterFactory.create(Api.addGson()))   // bean   gson 解析
                 .client(Api.initOkHttp())
                 .build()

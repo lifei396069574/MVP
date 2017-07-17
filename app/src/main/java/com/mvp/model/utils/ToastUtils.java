@@ -9,31 +9,36 @@ import android.widget.Toast;
  */
 
 public class ToastUtils {
-    private static Context context;
-    private ToastUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
-    /**
-     * 初始化工具类
-     *
-     * @param context 上下文
-     */
-    public static void init(Context context) {
-        ToastUtils.context = context.getApplicationContext();
-    }
-    /**
-     * 获取ApplicationContext
-     *
-     * @return ApplicationContext
-     */
-    public static Context getContext(){
-        if (context != null){
-            return context;
-        }
-        throw new NullPointerException("u should init first");
+    private static Toast toast;
+
+    private ToastUtils(){
+        throw new AssertionError();
     }
 
-    public static void toast(String str) {
-        Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+    public static void showToast(Context context,int resId){
+        showToast(context,context.getResources().getString(resId));
+    }
+
+    public static void showToast(Context context,int resId,int duration){
+        showToast(context,context.getResources().getString(resId),duration);
+    }
+
+    public static void showToast(Context context,CharSequence text){
+        showToast(context,text,Toast.LENGTH_SHORT);
+    }
+
+    public static void showToast(Context context,String text,int duration,Object...args){
+        showToast(context,String.format(text,args),duration);
+    }
+
+    public static void showToast(Context context,CharSequence text,int duration){
+
+        if(toast == null){
+            toast =  Toast.makeText(context,text,duration);
+        }else{
+            toast.setText(text);
+            toast.setDuration(duration);
+        }
+        toast.show();
     }
 }

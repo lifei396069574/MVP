@@ -11,13 +11,10 @@ public abstract class HttpObserver<T> implements Observer<T> {
 
     @Override
     public void onComplete() {
-
     }
 
     @Override
     public void onSubscribe(Disposable d) {
-
-
     }
 
     @Override

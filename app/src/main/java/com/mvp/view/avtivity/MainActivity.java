@@ -10,10 +10,14 @@ import com.mvp.model.utils.ToastUtils;
 import com.mvp.presenter.MainPresenter;
 import com.mvp.view.iview.MainView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainView {
+
+    private boolean isExit;
 
     @BindView(R.id.button)
     Button mButton;
@@ -25,7 +29,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     @Override
     public void onFail(String str) {
         LogUtils.a(str);
-        ToastUtils.toast(str);
+        ToastUtils.showToast(mContext,str);
     }
 
     @Override
@@ -51,6 +55,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     @OnClick(R.id.button)
     public void onClick() {
         mPresenter.xx();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(!isExit){
+            ToastUtils.showToast(mContext,R.string.press_again_to_exit);
+            isExit = true;
+            EventBus.getDefault().post(isExit);
+        }else{
+            super.onBackPressed();
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isExit = false;
     }
 
 }
