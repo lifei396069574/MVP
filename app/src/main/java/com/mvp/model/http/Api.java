@@ -101,7 +101,7 @@ public class Api {
     }
 
     private static class RetrofitInstance {
-        private static ApiService apiserver = new Retrofit.Builder()
+        private static final ApiService apiserver = new Retrofit.Builder()
                 .baseUrl(Constant.BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     //          .addConverterFactory(ScalarsConverterFactory.create())    //请求String类
@@ -113,7 +113,7 @@ public class Api {
 
 
     //得到Server对象
-    public static ApiService getServer() {
+    public static final ApiService getServer() {
         return RetrofitInstance.apiserver;
     }
 
