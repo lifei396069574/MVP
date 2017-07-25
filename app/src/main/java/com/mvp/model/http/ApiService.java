@@ -22,7 +22,7 @@ import retrofit2.http.Url;
 public interface ApiService {
 
     @GET
-    Observable<BaseBean<String>> getData(@Url String url ,@QueryMap  Map<String, String> map);
+    Observable<BaseBean> getData(@Url String url , @QueryMap  Map<String, String> map);
 
     @FormUrlEncoded
     @POST
